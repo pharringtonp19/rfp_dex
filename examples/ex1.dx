@@ -1,6 +1,0 @@
-'## Regularizing the Forward Pass 
-
-def relu (input : Float) : Float = 
-    select (input > 0.0) input 0.0 
-
-relu  (-1.)
