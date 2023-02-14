@@ -1,0 +1,33 @@
+'### The Unobserved Probability Space
+- there should be a standard function that generates the observed data 
+
+data omega  n:Nat = 
+    Asomega {y1: Float &  y0: Float & d : Float &  x : (Fin n => Float)}
+
+'### Random Variables of Interest
+
+def observed_y {n : Nat} (o : omega n) : Float = 
+    (Asomega o') = o 
+    d = (get_at #d o') 
+
+    case (d == 1.0) of 
+        True ->  (get_at #y1 o')
+        False -> (get_at #y0 o')
+
+def treatment {n : Nat} (o : omega n) : Float = 
+    (Asomega o') = o 
+    (get_at #d o') 
+
+def features {n : Nat} (o : omega n) : (Fin n => Float) = 
+    (Asomega o') = o 
+    (get_at #x o') 
+
+'### Example 
+
+z = Asomega { y1 = 1.0, y0 = 2.0, d = 3.0,  x = [1., 2., 3.]}
+
+observed_y z 
+
+treatment z 
+
+features z

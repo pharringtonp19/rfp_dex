@@ -9,11 +9,45 @@ def init_layer_params (key: Key) (m: Nat) (n: Nat) : Params m n =
         bias = rand_vec m rand k2
     }
 
-nodes = [12, 32, 32, 1]
+def init_layer_params_key  (m: Nat) (n: Nat) : Params m n = 
+    [k1, k2] = split_key $ new_key 1 
+    AsParams {
+        weights = rand_mat m n rand k1, 
+        bias = rand_vec m rand k2
+    }
+
+nodes_input = [12, 32, 32]
+nodes_output = [32, 32, 1]
+keys = split_key (new_key 1) :: Fin 3=>Key
+
+yield_state 0. \curSum. 
+    for i. 
+        curSum := get curSum + nodes_input.i 
 
 
-inputs = slice nodes 0 (Fin 2)
-outputs = slice nodes 1 (Fin 2)
+
+
+:t nodes_input
+
+:t max 
+
+:t init_layer_params
+-- init_layer_params keys nodes_output nodes_input
+
+
+
+
+
+
+
+
+
+
+
+init_params nodes
+
+--    inputs = slice nodes 0 (Fin (size n))
+--    outputs = slice nodes 1 (Fin 2)
 
 def init_something (n: Nat) (m: Nat) (x: (Fin m => Nat)) = 
     inputs = slice nodes 0 (Fin (n))
