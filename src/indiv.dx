@@ -1,8 +1,27 @@
 '### The Unobserved Probability Space
-- there should be a standard function that generates the observed data 
 
 data omega  n:Nat = 
     Asomega {y1: Float &  y0: Float & d : Float &  x : (Fin n => Float)}
+
+def draw (n : Nat) (k : Key) : omega n = 
+    [k1, k2, k3, k4] =  split_key k
+    y1 : Float = arb k1 
+    y0 : Float = arb k2 
+    d  : Float = arb k3 
+    x  : Fin n => Float = arb k4 
+    Asomega { y1 = y1, y0 = y0, d = d,  x = x}
+'#### Batch Sample 
+
+keys = split_key (new_key 1) :: Fin 1000=>Key
+samples = map (draw 100) keys
+
+:t samples
+
+
+
+    
+
+
 
 '### Random Variables of Interest
 
